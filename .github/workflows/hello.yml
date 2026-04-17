@@ -1,11 +1,11 @@
-name: My first workflows
+name: PR Workflow
 
-on: push
+on:
+  pull_request:
 
 jobs:
-  say-hello:
+  check-pr:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print message
-        run: echo "Hello, Github Actions!"
+      - run: echo "Workflow is working on Pull Request!"

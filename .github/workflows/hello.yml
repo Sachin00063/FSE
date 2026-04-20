@@ -1,11 +1,48 @@
-name: My first workflows
+# name: My first WorkFlow
 
-on: push
+# on:
+#   push:
+#   pull_request:
+
+# jobs:
+#   say-hello:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Print message
+#         run: |
+#           echo "Hello, Github Action!"
+#           echo "Testing pr setup"
+
+#   say-bye:
+#     needs: say-hello
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Print message
+#         run: |
+#           echo "bye from 2nd job"
+
+name: Uses action
+
+on:
+  push:
 
 jobs:
-  say-hello:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print message
-        run: echo "Hello, Github Actions!"
+      - name: Checkout code   # clone the repo
+        uses: actions/checkout@v4
+
+      - name: Stepup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Check Node version
+        run: node -v
+
+      - name: List files
+        run: ls

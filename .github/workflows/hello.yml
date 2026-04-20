@@ -36,5 +36,13 @@ jobs:
       - name: Checkout code   # clone the repo
         uses: actions/checkout@v4
 
+      - name: Stepup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Check Node version
+        run: node -v
+
       - name: List files
         run: ls

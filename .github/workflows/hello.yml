@@ -15,6 +15,7 @@ jobs:
           echo "Testing pr setup"
 
   say-bye:
+    needs: say-hello
     runs-on: ubuntu-latest
 
     steps:

@@ -1,11 +1,41 @@
-name: My first workflows
+# name: My first workflows
 
-on: push
+# on: push
+
+# jobs:
+#   say-hello:
+#     runs-on: ubuntu-latest
+    
+
+#     steps:
+#       - name: Print message
+#         run: echo "Hello, Github Actions!"
+
+name: Uses action
+
+on:
+  push:
 
 jobs:
-  say-hello:
+  job1:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Print message
-        run: echo "Hello, Github Actions!"
+      - name: create a file   # clone the repo
+        run: echo "Hello world" > file.txt
+      - name: upload on artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-file
+          path: file.txt
+  job2:
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: download a file
+        uses: actions/download-artifact@v4
+        with:
+          name: my-file
+
+        #add a step to read file.txt
+      - name: read file.txt
+        run: cat file.txt

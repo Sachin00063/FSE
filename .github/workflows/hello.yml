@@ -6,7 +6,6 @@
 #   say-hello:
 #     runs-on: ubuntu-latest
     
-
 #     steps:
 #       - name: Print message
 #         run: echo "Hello, Github Actions!"
@@ -27,6 +26,7 @@ jobs:
         with:
           name: my-file
           path: file.txt
+          
   job2:
     needs: job1
     runs-on: ubuntu-latest
@@ -36,6 +36,32 @@ jobs:
         with:
           name: my-file
 
-        #add a step to read file.txt
+      #add a step to read file.txt
       - name: read file.txt
         run: cat file.txt
+
+  # --- NEW JOB ADDED FOR LINTING AND TESTING ---
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. This pulls your code from your GitHub repo into the Action
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. This installs Node.js so it understands npm commands
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' 
+
+      # 3. This installs your project's dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Runs your safe linting script from package.json
+      - name: Run ESLint
+        run: npm run lint
+
+      # 5. Runs your safe testing script from package.json
+      - name: Run Tests
+        run: npm run test
